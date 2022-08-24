@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 import static com.graduation.votingSystem.RestaurantTestData.*;
@@ -29,7 +28,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void getWithDishes() {
         Restaurant expected = withDishes();
-        assertThat(service.getWithDishes(MAC_ID, LocalDate.of(2022, Month.AUGUST, 17)))
+        assertThat(service.getWithDishes(MAC_ID, LocalDate.now()))
                 .usingRecursiveComparison()
                 .ignoringFields("votesPerDay")
                 .isEqualTo(expected);
@@ -38,7 +37,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void getAllWithVotesPerDay() {
         List<Restaurant> expected = withVotesPerDay();
-        assertThat(service.getAllWithVotesPerDay(LocalDate.of(2022, Month.AUGUST, 17)))
+        assertThat(service.getAllWithVotesPerDay(LocalDate.now()))
                 .usingRecursiveComparison()
                 .ignoringFields("dish")
                 .isEqualTo(expected);

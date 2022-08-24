@@ -32,7 +32,7 @@ class VoteServiceTest extends AbstractServiceTest {
                 .usingRecursiveComparison()
                 .isNotEqualTo(expect);
 
-        Vote changed = getChange();
+        Vote changed = getChanged();
         assertThat(service.get(VOTE_1_ID))
                 .usingRecursiveComparison()
                 .isEqualTo(changed);

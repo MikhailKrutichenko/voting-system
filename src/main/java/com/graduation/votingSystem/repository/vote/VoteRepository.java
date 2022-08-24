@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.List;
 
 @Repository
@@ -30,9 +29,9 @@ public class VoteRepository {
 
     @Transactional
     public void vote(int restaurantId, int userId) {
-        Vote vote = repository.get(LocalDate.of(2022, Month.AUGUST, 17), userId);
+        Vote vote = repository.get(LocalDate.now(), userId);
         if (vote == null) {
-            Vote newVote = new Vote(userId, restaurantId, LocalDate.of(2022, Month.AUGUST, 17));
+            Vote newVote = new Vote(userId, restaurantId, LocalDate.now());
             repository.save(newVote);
         } else if (LocalTime.now().isBefore(properties.getTime())) {
             vote.setRestaurantId(restaurantId);
