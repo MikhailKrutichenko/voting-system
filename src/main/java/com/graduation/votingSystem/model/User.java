@@ -1,26 +1,21 @@
 package com.graduation.votingSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
-import lombok.*;
-import org.springframework.util.CollectionUtils;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User extends AbstractBaseEntity {
 
     @NotNull
@@ -42,6 +37,21 @@ public class User extends AbstractBaseEntity {
     @Column(name = "password", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    public User(Role roles, String name, String email, String password) {
+        this.roles = roles;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(Integer id, Role roles, String name, String email, String password) {
+        super(id);
+        this.roles = roles;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public String toString() {

@@ -1,9 +1,8 @@
 package com.graduation.votingSystem;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.graduation.votingSystem.converters.DateFormatter;
+import com.graduation.votingSystem.converters.Formatters;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +25,8 @@ public class VotingSystemApplication {
 
         @Override
         public void addFormatters(FormatterRegistry registry) {
-            registry.addFormatter(new DateFormatter());
+            registry.addFormatter(new Formatters.DateFormatter());
+            registry.addFormatter(new Formatters.TimeFormatter());
         }
 
         @Override

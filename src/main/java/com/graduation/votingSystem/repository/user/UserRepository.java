@@ -1,6 +1,7 @@
-package com.graduation.votingSystem.repository;
+package com.graduation.votingSystem.repository.user;
 
 import com.graduation.votingSystem.model.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,7 +9,10 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
+
 public class UserRepository {
+
+    private final Sort SORT_NAME = Sort.by(Sort.Direction.ASC, "name", "id");
 
     private final JpaUserRepository repository;
 
@@ -21,7 +25,7 @@ public class UserRepository {
     }
 
     public List<User> getAll() {
-        return repository.findAll();
+        return repository.findAll(SORT_NAME);
     }
 
     @Transactional
@@ -30,13 +34,10 @@ public class UserRepository {
     }
 
     @Transactional
-    public User create(User user) {
-        return repository.save(user);
-    }
-
-    @Transactional
-    public void update(User user) {
-        User updated = repository.getReferenceById(user.getId());
-
+    public User save(User user) {
+        if (user.isNew() || repository.existsById(user.getId())) {
+            return repository.save(user);
+        }
+        return null;
     }
 }

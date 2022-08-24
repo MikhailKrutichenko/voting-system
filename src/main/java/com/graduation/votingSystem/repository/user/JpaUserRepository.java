@@ -1,4 +1,4 @@
-package com.graduation.votingSystem.repository;
+package com.graduation.votingSystem.repository.user;
 
 import com.graduation.votingSystem.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

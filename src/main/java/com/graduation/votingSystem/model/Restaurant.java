@@ -1,7 +1,9 @@
 package com.graduation.votingSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -15,16 +17,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Restaurant extends AbstractBaseEntity {
 
     @NotBlank
     @Size(min = 3, max = 100)
-    @Column(name= "name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
     private List<Vote> votesPerDay;
 
@@ -34,6 +36,15 @@ public class Restaurant extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
     private List<Dish> dish;
+
+    public Restaurant(String name) {
+        this.name = name;
+    }
+
+    public Restaurant(Integer id, String name) {
+        super(id);
+        this.name = name;
+    }
 
     @Override
     public String toString() {

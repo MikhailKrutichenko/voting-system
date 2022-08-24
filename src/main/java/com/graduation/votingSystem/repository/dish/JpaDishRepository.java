@@ -1,4 +1,4 @@
-package com.graduation.votingSystem.repository;
+package com.graduation.votingSystem.repository.dish;
 
 import com.graduation.votingSystem.model.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;

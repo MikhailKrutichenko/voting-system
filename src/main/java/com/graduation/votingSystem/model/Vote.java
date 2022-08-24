@@ -1,6 +1,5 @@
 package com.graduation.votingSystem.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,14 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "vote")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Vote extends AbstractBaseEntity {
 
     @NotNull
@@ -31,6 +28,19 @@ public class Vote extends AbstractBaseEntity {
     @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    public Vote(Integer userId, Integer restaurantId, LocalDate date) {
+        this.userId = userId;
+        this.restaurantId = restaurantId;
+        this.date = date;
+    }
+
+    public Vote(Integer id, Integer userId, Integer restaurantId, LocalDate date) {
+        super(id);
+        this.userId = userId;
+        this.restaurantId = restaurantId;
+        this.date = date;
+    }
 
     @Override
     public String toString() {

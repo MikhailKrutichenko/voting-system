@@ -1,4 +1,4 @@
-package com.graduation.votingSystem.repository;
+package com.graduation.votingSystem.repository.restaurant;
 
 import com.graduation.votingSystem.model.Restaurant;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -10,13 +10,14 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public interface JpaRestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @EntityGraph(attributePaths = {"dish"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN Dish d ON r.id=:id AND d.date=:date")
+    @Query("SELECT DISTINCT r FROM Restaurant r JOIN Dish d ON r.id=:id AND d.date=:date ORDER BY r.name")
     Restaurant getWithDishes(@Param("id") int id, @Param("date") LocalDate date);
 
     @EntityGraph(attributePaths = {"votesPerDay"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT DISTINCT r FROM Restaurant r JOIN Vote v ON v.date=:date ORDER BY SIZE(r.votesPerDay) DESC")
+    @Query("SELECT DISTINCT r FROM Restaurant r JOIN Vote v ON v.date=:date ORDER BY SIZE(r.votesPerDay) DESC, r.name")
     List<Restaurant> getAllWithVotesPerDay(@Param("date") LocalDate date);
 
     @Modifying

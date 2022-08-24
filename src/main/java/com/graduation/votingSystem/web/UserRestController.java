@@ -1,7 +1,7 @@
 package com.graduation.votingSystem.web;
 
 import com.graduation.votingSystem.model.User;
-import com.graduation.votingSystem.repository.UserRepository;
+import com.graduation.votingSystem.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +23,31 @@ public class UserRestController {
     private static final Logger log = LoggerFactory.getLogger(UserRestController.class);
 
     @Autowired
-    private UserRepository repository;
+    private UserService service;
 
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         log.info("get id={}", id);
-        return repository.get(id);
+        return service.get(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete id={}", id);
-        repository.delete(id);
+        service.delete(id);
     }
 
     @GetMapping
     public List<User> getAll() {
         log.info("getAll");
-        return repository.getAll();
+        return service.getAll();
     }
 
     @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@RequestBody User user) {
         log.info("create id={}", user.getId());
-        User created = repository.create(user);
+        User created = service.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(USERS_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -57,6 +57,6 @@ public class UserRestController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody User user) {
-        repository.update(user);
+        service.update(user);
     }
 }

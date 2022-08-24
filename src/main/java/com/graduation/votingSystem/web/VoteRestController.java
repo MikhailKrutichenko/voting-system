@@ -1,7 +1,7 @@
 package com.graduation.votingSystem.web;
 
 import com.graduation.votingSystem.model.Vote;
-import com.graduation.votingSystem.repository.VoteRepository;
+import com.graduation.votingSystem.service.VoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,17 @@ public class VoteRestController {
     public static final String VOTE_URI = "/votes";
 
     @Autowired
-    private VoteRepository repository;
-
-    @GetMapping
-    public List<Vote> getAll() {
-        return repository.getAll();
-    }
+    private VoteService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void vote(@RequestParam int restId, @RequestParam int userId) {
         log.info("vote for the restaurant id={} from user id={}", restId, userId);
-        repository.vote(restId, userId);
+        service.vote(restId, userId);
+    }
+
+    @GetMapping
+    public List<Vote> getAll() {
+        return service.getAll();
     }
 }

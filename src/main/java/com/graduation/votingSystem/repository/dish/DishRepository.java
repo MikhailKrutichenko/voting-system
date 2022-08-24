@@ -1,9 +1,13 @@
-package com.graduation.votingSystem.repository;
+package com.graduation.votingSystem.repository.dish;
 
 import com.graduation.votingSystem.model.Dish;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Repository
+@Transactional(readOnly = true)
 public class DishRepository {
 
     private final JpaDishRepository repository;
@@ -16,19 +20,18 @@ public class DishRepository {
         return repository.get(id);
     }
 
+    @Transactional
     public boolean delete(int id) {
         return repository.delete(id) != 0;
     }
 
+    @Transactional
     public Dish save(Dish dish) {
-        return repository.save(dish);
-    }
-
-    public void update(Dish dish) {
-        Dish updated = repository.getReferenceById(dish.getId());
-        updated.setDescription(dish.getDescription());
-        updated.setDate(dish.getDate());
-        updated.setPrice(dish.getPrice());
-        repository.save(updated);
+        Dish d;
+        if (dish.isNew() || (d = repository.get(dish.getId())) != null &&
+                Objects.equals(d.getRestaurantId(), dish.getRestaurantId())) {
+            return repository.save(dish);
+        }
+        return null;
     }
 }

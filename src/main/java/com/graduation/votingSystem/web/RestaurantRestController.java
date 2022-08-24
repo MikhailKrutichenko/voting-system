@@ -1,7 +1,7 @@
 package com.graduation.votingSystem.web;
 
 import com.graduation.votingSystem.model.Restaurant;
-import com.graduation.votingSystem.repository.RestaurantRepository;
+import com.graduation.votingSystem.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,43 +24,43 @@ public class RestaurantRestController {
     public static final String RESTAURANT_URI = "/restaurants";
 
     @Autowired
-    public RestaurantRepository repository;
+    public RestaurantService service;
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         log.info("get id={}", id);
-        return repository.get(id);
+        return service.get(id);
     }
 
     @GetMapping("/{id}/dishes")
-    public Restaurant getWithDishes(@PathVariable int id) {
+    public Restaurant getWithDishes(@PathVariable int id, @RequestParam LocalDate date) {
         log.info("get with dishes id={}", id);
-        return repository.getWithDishes(id);
+        return service.getWithDishes(id, date);
     }
 
     @GetMapping("/votingResult")
     public List<Restaurant> getAllWithVotesPerDay(@RequestParam LocalDate date) {
         log.info("get voting result for {}", date);
-        return repository.getAllWithVotesPerDay(date);
+        return service.getAllWithVotesPerDay(date);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete id={}", id);
-        repository.delete(id);
+        service.delete(id);
     }
 
     @GetMapping
     public List<Restaurant> getAll() {
         log.info("getAll");
-        return repository.getAll();
+        return service.getAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
-        Restaurant created = repository.create(restaurant);
+        Restaurant created = service.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(RESTAURANT_URI + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -71,6 +71,6 @@ public class RestaurantRestController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Restaurant restaurant) {
         log.info("update entity id={}", restaurant.getId());
-        repository.update(restaurant);
+        service.update(restaurant);
     }
 }
