@@ -52,8 +52,7 @@ public class RestaurantRestController {
         service.delete(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping
+    @GetMapping("/admin/restaurants")
     public List<Restaurant> getAll() {
         log.info("getAll");
         return service.getAll();
