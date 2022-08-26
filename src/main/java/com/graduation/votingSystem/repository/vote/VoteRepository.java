@@ -1,6 +1,6 @@
 package com.graduation.votingSystem.repository.vote;
 
-import com.graduation.votingSystem.VotingConfigurationProperties;
+import com.graduation.votingSystem.PropertiesConfig;
 import com.graduation.votingSystem.model.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public class VoteRepository {
     private final JpaVoteRepository repository;
 
     @Autowired
-    private VotingConfigurationProperties properties;
+    private PropertiesConfig properties;
 
     public VoteRepository(JpaVoteRepository repository) {
         this.repository = repository;

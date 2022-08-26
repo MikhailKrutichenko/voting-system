@@ -15,23 +15,23 @@ public class UserTestData {
     public static final int USER_6_ID = 10005;
     public static final int ADMIN_ID = 10006;
 
-    public static final User USER_1 = new User(10000, Role.USER, "user1", "user1@mail.ru", "123");
-    public static final User USER_2 = new User(10001, Role.USER, "user2", "user2@mail.ru", "456");
-    public static final User USER_3 = new User(10002, Role.USER, "user3", "user3@mail.ru", "789");
-    public static final User USER_4 = new User(10003, Role.USER, "user4", "user4@mail.ru", "124");
-    public static final User USER_5 = new User(10004, Role.USER, "user5", "user5@mail.ru", "125");
-    public static final User USER_6 = new User(10005, Role.USER, "user6", "user6@mail.ru", "126");
-    public static final User ADMIN = new User(10006, Role.ADMIN, "admin", "admin@mail.ru", "111");
+    public static final User USER_1 = new User(10000, Role.ROLE_USER, "user1", "user1@mail.ru", "123");
+    public static final User USER_2 = new User(10001, Role.ROLE_USER, "user2", "user2@mail.ru", "456");
+    public static final User USER_3 = new User(10002, Role.ROLE_USER, "user3", "user3@mail.ru", "789");
+    public static final User USER_4 = new User(10003, Role.ROLE_USER, "user4", "user4@mail.ru", "124");
+    public static final User USER_5 = new User(10004, Role.ROLE_USER, "user5", "user5@mail.ru", "125");
+    public static final User USER_6 = new User(10005, Role.ROLE_USER, "user6", "user6@mail.ru", "126");
+    public static final User ADMIN = new User(10006, Role.ROLE_ADMIN, "admin", "admin@mail.ru", "111");
 
     public static User getNew() {
-        return new User(null, Role.USER, "New", "new@mail.ru", "111");
+        return new User(null, Role.ROLE_USER, "New", "new@mail.ru", "111");
     }
 
     public static User getUpdated() {
-        return new User(ADMIN_ID, Role.ADMIN, "Updated", "updated@Mail.ru", "232");
+        return new User(ADMIN_ID, Role.ROLE_ADMIN, "Updated", "updated@Mail.ru", "232");
     }
 
     public static User getWithNotExistId() {
-        return new User(NOT_EXIST_ID, Role.USER, "Updated", "updated@mail.ru", "12312");
+        return new User(NOT_EXIST_ID, Role.ROLE_USER, "Updated", "updated@mail.ru", "12312");
     }
 }

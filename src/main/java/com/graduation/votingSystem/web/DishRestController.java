@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -15,10 +16,11 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(value = DishRestController.DISHES_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishRestController {
 
-    public static final String DISHES_URL = "/dishes";
+    public static final String DISHES_URL = "admin/dishes";
 
     private static final Logger log = LoggerFactory.getLogger(DishRestController.class);
 

@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,7 +24,7 @@ public class User extends AbstractBaseEntity {
     @NotNull
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Role roles;
+    private Role role;
 
     @NotBlank
     @Size(min = 1, max = 30)
@@ -38,25 +41,29 @@ public class User extends AbstractBaseEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    public User(Role roles, String name, String email, String password) {
-        this.roles = roles;
+    public User(Role role, String name, String email, String password) {
+        this.role = role;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public User(Integer id, Role roles, String name, String email, String password) {
+    public User(Integer id, Role role, String name, String email, String password) {
         super(id);
-        this.roles = roles;
+        this.role = role;
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public Set<GrantedAuthority> grantedAuthorities() {
+        return Set.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "roles=" + roles +
+                "roles=" + role +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", id=" + id +

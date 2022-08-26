@@ -11,4 +11,7 @@ interface JpaUserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("DELETE FROM User u WHERE u.id=:id")
     int delete(@Param("id") int id);
+
+    @Query("SELECT u FROM User u WHERE u.email=:email")
+    User getByEmail(@Param("email") String email);
 }

@@ -35,4 +35,8 @@ public class UserService {
     public void update(User user) {
         ValidationUtil.checkNotFound(repository.save(user), user.getId());
     }
+
+    public User getByEmail(String email) {
+        return ValidationUtil.checkNotFound(repository.getByEmail(email), email);
+    }
 }

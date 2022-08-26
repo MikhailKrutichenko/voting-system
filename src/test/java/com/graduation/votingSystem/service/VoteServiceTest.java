@@ -1,6 +1,6 @@
 package com.graduation.votingSystem.service;
 
-import com.graduation.votingSystem.VotingConfigurationProperties;
+import com.graduation.votingSystem.PropertiesConfig;
 import com.graduation.votingSystem.model.Vote;
 import com.graduation.votingSystem.util.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +21,7 @@ class VoteServiceTest extends AbstractServiceTest {
     private VoteService service;
 
     @Autowired
-    VotingConfigurationProperties properties;
+    PropertiesConfig properties;
 
     @Test
     void changeVoteBeforeConstrainTime() {

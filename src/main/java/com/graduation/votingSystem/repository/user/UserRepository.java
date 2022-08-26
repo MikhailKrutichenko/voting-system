@@ -40,4 +40,8 @@ public class UserRepository {
         }
         return null;
     }
+
+    public User getByEmail(String email) {
+        return repository.getByEmail(email);
+    }
 }

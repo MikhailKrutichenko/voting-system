@@ -9,7 +9,7 @@ import java.time.LocalTime;
 @Component
 @ConfigurationProperties(prefix = "voting")
 @Data
-public class VotingConfigurationProperties {
+public class PropertiesConfig {
 
     private LocalTime time;
 }

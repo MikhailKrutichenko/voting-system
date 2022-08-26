@@ -1,5 +1,6 @@
 package com.graduation.votingSystem.util;
 
+import com.graduation.votingSystem.model.User;
 import com.graduation.votingSystem.util.exception.NotFoundException;
 
 public class ValidationUtil {
@@ -15,5 +16,12 @@ public class ValidationUtil {
         if (!found) {
             throw new NotFoundException("Entity not found with id=" + id);
         }
+    }
+
+    public static User checkNotFound(User entity, String email) {
+        if (entity == null) {
+            throw new NotFoundException("Entity not found with email" + email);
+        }
+        return entity;
     }
 }

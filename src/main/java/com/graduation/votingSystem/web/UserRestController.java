@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -15,10 +16,11 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(value = UserRestController.USERS_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
 
-    public static final String USERS_URL = "/users";
+    public static final String USERS_URL = "admin/users";
 
     private static final Logger log = LoggerFactory.getLogger(UserRestController.class);
 
