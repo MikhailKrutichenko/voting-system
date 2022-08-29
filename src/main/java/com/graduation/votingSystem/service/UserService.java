@@ -32,8 +32,9 @@ public class UserService {
         return repository.save(user);
     }
 
-    public void update(User user) {
-        ValidationUtil.checkNotFound(repository.save(user), user.getId());
+    public void update(User user, int id) {
+        user.setId(id);
+        ValidationUtil.checkNotFound(repository.save(user), id);
     }
 
     public User getByEmail(String email) {

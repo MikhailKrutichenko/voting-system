@@ -1,6 +1,8 @@
 package com.graduation.votingSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,6 +15,7 @@ abstract class AbstractBaseEntity {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @ApiModelProperty(readOnly = true)
     protected Integer id;
 
     public AbstractBaseEntity() {

@@ -2,6 +2,8 @@ package com.graduation.votingSystem.web;
 
 import com.graduation.votingSystem.model.User;
 import com.graduation.votingSystem.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(value = UserRestController.USERS_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@Api("User controller")
 public class UserRestController {
 
     public static final String USERS_URL = "admin/users";
@@ -27,12 +31,16 @@ public class UserRestController {
     @Autowired
     private UserService service;
 
+
+    @ApiOperation("Get")
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         log.info("get id={}", id);
         return service.get(id);
     }
 
+
+    @ApiOperation("Delete")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
@@ -40,14 +48,18 @@ public class UserRestController {
         service.delete(id);
     }
 
+
+    @ApiOperation("Get all")
     @GetMapping
     public List<User> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
+
+    @ApiOperation("Create")
     @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> create(@Valid @RequestBody User user) {
         log.info("create id={}", user.getId());
         User created = service.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -56,9 +68,11 @@ public class UserRestController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @ApiOperation("Update")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody User user) {
-        service.update(user);
+    public void update(@PathVariable int id, @Valid @RequestBody User user) {
+        service.update(user, id);
     }
 }

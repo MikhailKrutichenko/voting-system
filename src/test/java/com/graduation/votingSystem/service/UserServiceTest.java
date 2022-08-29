@@ -54,7 +54,7 @@ class UserServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         User expected = getUpdated();
-        service.update(expected);
+        service.update(expected, ADMIN_ID);
         assertThat(service.get(expected.getId()))
                 .usingRecursiveComparison()
                 .isEqualTo(expected);
@@ -63,6 +63,6 @@ class UserServiceTest extends AbstractServiceTest {
     @Test
     void updateNotExistId() {
         User withNotExistId = getWithNotExistId();
-        Assertions.assertThrows(NotFoundException.class, () -> service.update(withNotExistId));
+        Assertions.assertThrows(NotFoundException.class, () -> service.update(withNotExistId, NOT_EXIST_ID));
     }
 }

@@ -9,13 +9,13 @@ FROM restaurant;
 ALTER SEQUENCE global_seq RESTART WITH 10000;
 
 INSERT INTO users (name, password, email, role)
-VALUES ('user1', '123', 'user1@mail.ru', 'USER'),
-       ('user2', '456', 'user2@mail.ru', 'USER'),
-       ('user3', '789', 'user3@mail.ru', 'USER'),
-       ('user4', '124', 'user4@mail.ru', 'USER'),
-       ('user5', '125', 'user5@mail.ru', 'USER'),
-       ('user6', '126', 'user6@mail.ru', 'USER'),
-       ('admin', '111', 'admin@mail.ru', 'ADMIN');
+VALUES ('user1', '123', 'user1@mail.ru', 'ROLE_USER'),
+       ('user2', '456', 'user2@mail.ru', 'ROLE_USER'),
+       ('user3', '789', 'user3@mail.ru', 'ROLE_USER'),
+       ('user4', '124', 'user4@mail.ru', 'ROLE_USER'),
+       ('user5', '125', 'user5@mail.ru', 'ROLE_USER'),
+       ('user6', '126', 'user6@mail.ru', 'ROLE_USER'),
+       ('admin', '111', 'admin@mail.ru', 'ROLE_ADMIN');
 
 INSERT INTO restaurant (name)
 VALUES ('mac'),

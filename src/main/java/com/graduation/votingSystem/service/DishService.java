@@ -22,8 +22,9 @@ public class DishService {
         return repository.save(dish);
     }
 
-    public void update(Dish dish) {
-        ValidationUtil.checkNotFound(repository.save(dish), dish.getId());
+    public void update(Dish dish, int id) {
+        dish.setId(id);
+        ValidationUtil.checkNotFound(repository.save(dish), id);
     }
 
     public void delete(int id) {

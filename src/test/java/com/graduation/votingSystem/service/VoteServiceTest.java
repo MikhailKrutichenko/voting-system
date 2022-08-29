@@ -66,7 +66,7 @@ class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void notFoundTest() {
+    void notFound() {
         Assertions.assertThrows(NotFoundException.class, () -> service.get(NOT_EXISTS_ID));
     }
 }

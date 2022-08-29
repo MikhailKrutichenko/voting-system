@@ -41,7 +41,8 @@ public class RestaurantService {
         return repository.save(restaurant);
     }
 
-    public void update(Restaurant restaurant) {
-        ValidationUtil.checkNotFound(repository.save(restaurant), restaurant.getId());
+    public void update(Restaurant restaurant, int id) {
+        restaurant.setId(id);
+        ValidationUtil.checkNotFound(repository.save(restaurant), id);
     }
 }

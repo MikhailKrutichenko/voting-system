@@ -32,20 +32,20 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         Dish expected = getUpdated();
-        service.update(expected);
+        service.update(expected, DISH_1_MAC_ID);
         assertThat(service.get(expected.getId())).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
     void updateNotExistId() {
         Dish withNotExistId = getUpdatedWithNotExistId();
-        Assertions.assertThrows(NotFoundException.class, () -> service.update(withNotExistId));
+        Assertions.assertThrows(NotFoundException.class, () -> service.update(withNotExistId, NOT_EXIST_ID));
     }
 
     @Test
     void updateWithForeignRestaurantId() {
         Dish withForeignRestaurantId = getUpdatedWithForeignRestaurantId();
-        Assertions.assertThrows(NotFoundException.class, () -> service.update(withForeignRestaurantId));
+        Assertions.assertThrows(NotFoundException.class, () -> service.update(withForeignRestaurantId,DISH_1_MAC_ID));
     }
 
     @Test

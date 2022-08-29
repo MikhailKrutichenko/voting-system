@@ -75,7 +75,7 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void update() {
         Restaurant expected = getUpdated();
-        service.update(expected);
+        service.update(expected, MAC_ID);
         assertThat(service.get(expected.getId()))
                 .usingRecursiveComparison()
                 .ignoringFields("dish", "votesPerDay")
@@ -85,6 +85,6 @@ class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     void updateNotExistId() {
         Restaurant withNotExistId = getWithNotExistId();
-        Assertions.assertThrows(NotFoundException.class, () -> service.update(withNotExistId));
+        Assertions.assertThrows(NotFoundException.class, () -> service.update(withNotExistId, NOT_EXIST_ID));
     }
 }
