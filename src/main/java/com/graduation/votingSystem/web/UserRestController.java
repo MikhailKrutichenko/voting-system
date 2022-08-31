@@ -31,14 +31,12 @@ public class UserRestController {
     @Autowired
     private UserService service;
 
-
     @ApiOperation("Get")
     @GetMapping("/{id}")
     public User get(@PathVariable int id) {
         log.info("get id={}", id);
         return service.get(id);
     }
-
 
     @ApiOperation("Delete")
     @DeleteMapping("/{id}")
@@ -48,7 +46,6 @@ public class UserRestController {
         service.delete(id);
     }
 
-
     @ApiOperation("Get all")
     @GetMapping
     public List<User> getAll() {
@@ -56,11 +53,10 @@ public class UserRestController {
         return service.getAll();
     }
 
-
     @ApiOperation("Create")
-    @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@Valid @RequestBody User user) {
-        log.info("create id={}", user.getId());
+        log.info("Create");
         User created = service.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(USERS_URL + "/{id}")
@@ -68,11 +64,11 @@ public class UserRestController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-
     @ApiOperation("Update")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable int id, @Valid @RequestBody User user) {
+        log.info("Update id={}", id);
         service.update(user, id);
     }
 }

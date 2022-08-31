@@ -21,22 +21,23 @@ import java.util.Set;
 @NoArgsConstructor
 public class User extends AbstractBaseEntity {
 
-    @NotNull
+    @NotNull(message = "Role must be not null.")
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @NotBlank
-    @Size(min = 1, max = 30)
+    @NotBlank(message = "Name must be not blank.")
+    @Size(min = 3, max = 30, message = "Name size must be min 3 max 30.")
     @Column(name = "name", nullable = false)
     private String name;
 
     @Email
-    @NotBlank
+    @NotBlank(message = "Email must be not blank.")
     @Column(name = "email", nullable = false)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Password must be not blank.")
+    @Size(min = 3, max = 20, message = "Password must be min 5 max 20.")
     @Column(name = "password", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

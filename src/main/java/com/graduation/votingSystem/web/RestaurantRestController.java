@@ -44,14 +44,12 @@ public class RestaurantRestController {
         return service.getWithDishes(id, date);
     }
 
-
     @ApiOperation("Get with votes for date")
     @GetMapping("/restaurants/votingResult")
     public List<Restaurant> getAllWithVotesPerDay(@RequestParam LocalDate date) {
         log.info("get voting result for {}", date);
         return service.getAllWithVotesPerDay(date);
     }
-
 
     @ApiOperation("Delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -63,16 +61,15 @@ public class RestaurantRestController {
     }
 
     @ApiOperation("Get all")
-    @GetMapping("/admin/restaurants")
+    @GetMapping("/restaurants")
     public List<Restaurant> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
-
     @ApiOperation("Create")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping(name = "/admin/restaurants", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/admin/restaurants", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
         Restaurant created = service.create(restaurant);
@@ -84,7 +81,7 @@ public class RestaurantRestController {
 
     @ApiOperation("Update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping(name = "/admin/restaurants/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/admin/restaurants/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable int id, @Valid @RequestBody Restaurant restaurant) {
         log.info("update entity id={}", restaurant.getId());

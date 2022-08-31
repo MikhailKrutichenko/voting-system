@@ -7,9 +7,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Entity
@@ -19,21 +17,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Dish extends AbstractBaseEntity {
 
-    @NotNull
+    @NotNull(message = "Restaurant id must be not null.")
     @Column(name = "restaurant_id", nullable = false)
     private Integer restaurantId;
 
-    @NotBlank
-    @Size(min = 3, max = 30)
+    @NotBlank(message = "Descriptions must be not blank.")
+    @Size(min = 3, max = 30, message = "Description size min 3 max 30.")
     @Column(name = "name", nullable = false)
     private String description;
 
-    @NotNull
+    @NotNull(message = "Date must be not null.")
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @NotNull
-    @Size(min = 100)
+    @NotNull(message = "Price must be not null.")
+    @Min(value = 100, message = "Min price 100.")
+    @Max(value = 10000000, message = "Max price 10000000.")
     @Column(name = "price", nullable = false)
     private Integer price;
 

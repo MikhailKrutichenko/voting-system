@@ -19,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Restaurant extends AbstractBaseEntity {
 
-    @NotBlank
-    @Size(min = 3, max = 100)
+    @NotBlank(message = "Name must be not blank.")
+    @Size(min = 3, max = 100, message = "Name size must be min 3 max 100")
     @Column(name = "name", nullable = false)
     private String name;
 
