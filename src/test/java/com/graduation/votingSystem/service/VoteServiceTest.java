@@ -5,6 +5,8 @@ import com.graduation.votingSystem.model.Vote;
 import com.graduation.votingSystem.util.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalTime;
@@ -25,27 +27,33 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void changeVoteBeforeConstrainTime() {
-        properties.setTime(LocalTime.now().plusHours(1));
-        Vote expect = service.get(VOTE_1_ID);
-        service.vote(MM_ID, USER_1_ID);
-        assertThat(service.get(VOTE_1_ID))
-                .usingRecursiveComparison()
-                .isNotEqualTo(expect);
+        LocalTime requiredTime = properties.getTime().minusHours(1);
+        try (MockedStatic<LocalTime> mockTime = Mockito.mockStatic(LocalTime.class)) {
+            mockTime.when(LocalTime::now).thenReturn(requiredTime);
+            Vote expect = service.get(VOTE_1_ID);
+            service.vote(MM_ID, USER_1_ID);
+            assertThat(service.get(VOTE_1_ID))
+                    .usingRecursiveComparison()
+                    .isNotEqualTo(expect);
 
-        Vote changed = getChanged();
-        assertThat(service.get(VOTE_1_ID))
-                .usingRecursiveComparison()
-                .isEqualTo(changed);
+            Vote changed = getChanged();
+            assertThat(service.get(VOTE_1_ID))
+                    .usingRecursiveComparison()
+                    .isEqualTo(changed);
+        }
     }
 
     @Test
     void changeVoteAfterConstrainTime() {
-        properties.setTime(LocalTime.now().minusHours(1));
-        Vote expect = service.get(VOTE_1_ID);
-        service.vote(MM_ID, USER_1_ID);
-        assertThat(service.get(VOTE_1_ID))
-                .usingRecursiveComparison()
-                .isEqualTo(expect);
+        LocalTime requiredTime = properties.getTime().plusHours(1);
+        try (MockedStatic<LocalTime> mockTime = Mockito.mockStatic(LocalTime.class)) {
+            mockTime.when(LocalTime::now).thenReturn(requiredTime);
+            Vote expect = service.get(VOTE_1_ID);
+            service.vote(MM_ID, USER_1_ID);
+            assertThat(service.get(VOTE_1_ID))
+                    .usingRecursiveComparison()
+                    .isEqualTo(expect);
+        }
     }
 
     @Test
