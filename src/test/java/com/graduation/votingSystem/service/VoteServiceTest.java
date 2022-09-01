@@ -2,6 +2,7 @@ package com.graduation.votingSystem.service;
 
 import com.graduation.votingSystem.PropertiesConfig;
 import com.graduation.votingSystem.model.Vote;
+import com.graduation.votingSystem.util.exception.ConstrainException;
 import com.graduation.votingSystem.util.exception.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class VoteServiceTest extends AbstractServiceTest {
     private VoteService service;
 
     @Autowired
-    PropertiesConfig properties;
+     private PropertiesConfig properties;
 
     @Test
     void changeVoteBeforeConstrainTime() {
@@ -48,11 +49,7 @@ class VoteServiceTest extends AbstractServiceTest {
         LocalTime requiredTime = properties.getTime().plusHours(1);
         try (MockedStatic<LocalTime> mockTime = Mockito.mockStatic(LocalTime.class)) {
             mockTime.when(LocalTime::now).thenReturn(requiredTime);
-            Vote expect = service.get(VOTE_1_ID);
-            service.vote(MM_ID, USER_1_ID);
-            assertThat(service.get(VOTE_1_ID))
-                    .usingRecursiveComparison()
-                    .isEqualTo(expect);
+            Assertions.assertThrows(ConstrainException.class, () -> service.vote(MM_ID, USER_1_ID));
         }
     }
 

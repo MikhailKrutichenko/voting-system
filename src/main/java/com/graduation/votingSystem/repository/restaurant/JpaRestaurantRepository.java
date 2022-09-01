@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-
 public interface JpaRestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @EntityGraph(attributePaths = {"dish"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT DISTINCT r FROM Restaurant r JOIN Dish d ON r.id=:id AND d.date=:date ORDER BY r.name")

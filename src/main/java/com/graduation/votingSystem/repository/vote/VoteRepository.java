@@ -28,16 +28,17 @@ public class VoteRepository {
     }
 
     @Transactional
-    public void vote(int restaurantId, int userId) {
+    public Vote vote(int restaurantId, int userId) {
         Vote vote = repository.get(LocalDate.now(), userId);
         if (vote == null) {
             Vote newVote = new Vote(userId, restaurantId, LocalDate.now());
-            repository.save(newVote);
+            return repository.save(newVote);
         } else if (LocalTime.now().isBefore(properties.getTime())) {
             vote.setRestaurantId(restaurantId);
             vote.setUserId(userId);
-            repository.save(vote);
+            return repository.save(vote);
         }
+        return null;
     }
 
     public List<Vote> getAll() {

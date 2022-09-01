@@ -45,7 +45,7 @@ class DishServiceTest extends AbstractServiceTest {
     @Test
     void updateWithForeignRestaurantId() {
         Dish withForeignRestaurantId = getUpdatedWithForeignRestaurantId();
-        Assertions.assertThrows(NotFoundException.class, () -> service.update(withForeignRestaurantId,DISH_1_MAC_ID));
+        Assertions.assertThrows(NotFoundException.class, () -> service.update(withForeignRestaurantId, DISH_1_MAC_ID));
     }
 
     @Test

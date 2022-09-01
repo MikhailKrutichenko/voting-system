@@ -26,7 +26,6 @@ public class VoteRestController {
     @Autowired
     private VoteService service;
 
-
     @ApiOperation("Vote")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/votes")
@@ -36,7 +35,6 @@ public class VoteRestController {
         log.info("vote for the restaurant id={} from user id={}", restId, user.getId());
         service.vote(restId, user.getId());
     }
-
 
     @ApiOperation("Get all")
     @GetMapping("admin/votes")

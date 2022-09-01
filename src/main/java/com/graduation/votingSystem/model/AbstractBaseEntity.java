@@ -2,7 +2,6 @@ package com.graduation.votingSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 import java.util.Objects;
