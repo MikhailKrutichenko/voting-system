@@ -23,8 +23,4 @@ public class VoteService {
     public void vote(int restId, int userId) {
         ValidationUtil.checkVoteConstraint(repository.vote(restId, userId));
     }
-
-    public List<Vote> getAll() {
-        return repository.getAll();
-    }
 }

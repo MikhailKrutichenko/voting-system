@@ -35,12 +35,4 @@ public class VoteRestController {
         log.info("vote for the restaurant id={} from user id={}", restId, user.getId());
         service.vote(restId, user.getId());
     }
-
-    @ApiOperation("Get all")
-    @GetMapping("admin/votes")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<Vote> getAll() {
-        log.info("get all");
-        return service.getAll();
-    }
 }

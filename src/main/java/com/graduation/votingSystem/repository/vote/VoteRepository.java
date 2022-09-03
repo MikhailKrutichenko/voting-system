@@ -40,8 +40,4 @@ public class VoteRepository {
         }
         return null;
     }
-
-    public List<Vote> getAll() {
-        return repository.findAll();
-    }
 }
